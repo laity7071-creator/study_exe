@@ -1,7 +1,7 @@
 {
-    "theme": "system",
-    "font_size": 12,
-    "brightness": 10,
+    "theme": "light",
+    "font_size": 18,
+    "brightness": 20,
     "sql_timeout": 30,
     "ssh_timeout": 10,
     "log_level": "INFO",
