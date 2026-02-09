@@ -1,0 +1,21 @@
+{
+    "admin": {
+        "username": "admin",
+        "password": "admin123"
+    },
+    "user_info": {
+        "name": "",
+        "age": "",
+        "phone": "",
+        "email": ""
+    },
+    "db_saved": [
+        "localhost:3306",
+        "545454:3306"
+    ],
+    "settings": {
+        "bg_image": "",
+        "brightness": 1.0,
+        "splash_image": ""
+    }
+}

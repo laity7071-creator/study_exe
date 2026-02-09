@@ -1,0 +1,8 @@
+# GUI核心库（PyQt5）
+PyQt5==5.15.9
+# MySQL数据库连接
+pymysql==1.1.0
+# 打包EXE工具
+pyinstaller==6.3.0
+# 可选：如果需要更美观的Qt样式（后续美化UI可用）
+qt-material==2.14.2
