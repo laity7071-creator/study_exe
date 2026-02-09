@@ -1,0 +1,247 @@
+2026-02-09 16:31:59,780 | INFO | ==================================================
+2026-02-09 16:31:59,780 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 16:31:59,780 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 16:31:59,840 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 16:32:03,321 | INFO | 数据库页面已加载
+2026-02-09 16:32:12,336 | ERROR | 连接失败：(1045, "Access denied for user 'root'@'localhost' (using password: NO)")
+2026-02-09 16:32:15,526 | INFO | 一键登录：填充本地默认连接
+2026-02-09 16:32:24,693 | INFO | 连接成功：localhost:3306
+2026-02-09 16:32:27,737 | INFO | 加载SQL模板：SELECT * FROM table LIMIT 10;
+2026-02-09 16:32:28,571 | INFO | 执行SQL：SELECT * FROM table LIMIT 10;
+2026-02-09 16:32:30,670 | ERROR | SQL执行失败：(1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table LIMIT 10' at line 1")
+2026-02-09 16:32:36,671 | INFO | 执行SQL：SELECT 1
+2026-02-09 16:32:38,376 | INFO | SQL执行成功
+2026-02-09 16:32:55,937 | INFO | 保存连接：545454:3306
+2026-02-09 16:32:59,364 | INFO | 清空连接信息和SQL
+2026-02-09 16:33:01,843 | INFO | 一键登录：填充本地默认连接
+2026-02-09 16:33:11,286 | INFO | 全屏查看结果
+2026-02-09 16:33:33,118 | INFO | 加载SQL模板：INSERT INTO table (col1) VALUES ('val');
+2026-02-09 16:33:33,204 | INFO | 加载SQL模板：UPDATE table SET col1='val' WHERE id=1;
+2026-02-09 16:33:33,922 | INFO | 加载SQL模板：DELETE FROM table WHERE id=1;
+2026-02-09 16:33:34,686 | INFO | 加载SQL模板：UPDATE table SET col1='val' WHERE id=1;
+2026-02-09 16:33:34,720 | INFO | 加载SQL模板：INSERT INTO table (col1) VALUES ('val');
+2026-02-09 16:33:34,753 | INFO | 加载SQL模板：SELECT * FROM table LIMIT 10;
+2026-02-09 16:33:35,188 | INFO | 加载SQL模板：SELECT * FROM table LIMIT 10;
+2026-02-09 16:33:35,273 | INFO | 加载SQL模板：INSERT INTO table (col1) VALUES ('val');
+2026-02-09 16:33:35,363 | INFO | 加载SQL模板：UPDATE table SET col1='val' WHERE id=1;
+2026-02-09 16:33:35,661 | INFO | 加载SQL模板：INSERT INTO table (col1) VALUES ('val');
+2026-02-09 16:33:35,707 | INFO | 加载SQL模板：SELECT * FROM table LIMIT 10;
+2026-02-09 16:33:35,903 | INFO | 加载SQL模板：SELECT * FROM table LIMIT 10;
+2026-02-09 16:33:35,939 | INFO | 加载SQL模板：INSERT INTO table (col1) VALUES ('val');
+2026-02-09 16:33:35,955 | INFO | 加载SQL模板：UPDATE table SET col1='val' WHERE id=1;
+2026-02-09 16:33:36,005 | INFO | 加载SQL模板：DELETE FROM table WHERE id=1;
+2026-02-09 16:33:36,054 | INFO | 加载SQL模板：UPDATE table SET col1='val' WHERE id=1;
+2026-02-09 16:33:36,097 | INFO | 加载SQL模板：INSERT INTO table (col1) VALUES ('val');
+2026-02-09 16:33:36,238 | INFO | 加载SQL模板：UPDATE table SET col1='val' WHERE id=1;
+2026-02-09 16:33:36,315 | INFO | 加载SQL模板：DELETE FROM table WHERE id=1;
+2026-02-09 16:38:15,491 | INFO | ==================================================
+2026-02-09 16:38:15,491 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 16:38:15,491 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 16:38:15,549 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 16:39:28,738 | INFO | 数据库页面已加载
+2026-02-09 16:43:10,857 | INFO | ==================================================
+2026-02-09 16:43:10,857 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 16:43:10,858 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 16:43:10,931 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 16:43:18,321 | INFO | 数据库页面已加载
+2026-02-09 16:43:20,633 | CRITICAL | 程序崩溃：
+Traceback (most recent call last):
+  File "D:\LaityTest\study_exe\ui\pages\page_db.py", line 374, in onekey_login
+    self.db_edit.setText("archives")
+AttributeError: 'DBPage' object has no attribute 'db_edit'
+
+2026-02-09 16:50:36,791 | INFO | ==================================================
+2026-02-09 16:50:36,791 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 16:50:36,792 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 16:50:36,873 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 16:50:42,534 | CRITICAL | 程序崩溃：
+Traceback (most recent call last):
+  File "D:\LaityTest\study_exe\ui\main_window.py", line 77, in on_tab_changed
+    self.tab_widget.insertTab(index, lazy_import_page_settings(), "设置")
+  File "D:\LaityTest\study_exe\ui\main_window.py", line 21, in lazy_import_page_settings
+    return SettingsPage()
+  File "D:\LaityTest\study_exe\ui\pages\page_settings.py", line 13, in __init__
+    self.init_ui()
+  File "D:\LaityTest\study_exe\ui\pages\page_settings.py", line 55, in init_ui
+    self.stacked_widget.addWidget(self.create_tools_page())     # 工具设置
+  File "D:\LaityTest\study_exe\ui\pages\page_settings.py", line 176, in create_tools_page
+    timeout_edit = QLineEdit("30")
+NameError: name 'QLineEdit' is not defined
+
+2026-02-09 16:50:46,380 | INFO | ==================================================
+2026-02-09 16:50:46,380 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 16:50:46,380 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 16:50:46,439 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 16:50:49,078 | INFO | 数据库页面已加载
+2026-02-09 16:51:14,156 | ERROR | SSH连接失败：[Errno None] Unable to connect to port 22 on 127.0.0.1 or ::1
+2026-02-09 16:51:16,431 | CRITICAL | 程序崩溃：
+Traceback (most recent call last):
+  File "D:\LaityTest\study_exe\ui\main_window.py", line 77, in on_tab_changed
+    self.tab_widget.insertTab(index, lazy_import_page_settings(), "设置")
+  File "D:\LaityTest\study_exe\ui\main_window.py", line 21, in lazy_import_page_settings
+    return SettingsPage()
+  File "D:\LaityTest\study_exe\ui\pages\page_settings.py", line 13, in __init__
+    self.init_ui()
+  File "D:\LaityTest\study_exe\ui\pages\page_settings.py", line 55, in init_ui
+    self.stacked_widget.addWidget(self.create_tools_page())     # 工具设置
+  File "D:\LaityTest\study_exe\ui\pages\page_settings.py", line 176, in create_tools_page
+    timeout_edit = QLineEdit("30")
+NameError: name 'QLineEdit' is not defined
+
+2026-02-09 16:51:19,259 | INFO | ==================================================
+2026-02-09 16:51:19,260 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 16:51:19,260 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 16:51:19,327 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 16:51:20,880 | INFO | 数据库页面已加载
+2026-02-09 16:51:49,198 | INFO | ==================================================
+2026-02-09 16:51:49,198 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 16:51:49,198 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 16:51:49,264 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 16:51:53,138 | INFO | 数据库页面已加载
+2026-02-09 16:52:35,167 | INFO | ==================================================
+2026-02-09 16:52:35,167 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 16:52:35,167 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 16:52:35,232 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 16:52:36,791 | CRITICAL | 程序崩溃：
+Traceback (most recent call last):
+  File "D:\LaityTest\study_exe\ui\main_window.py", line 77, in on_tab_changed
+    self.tab_widget.insertTab(index, lazy_import_page_settings(), "设置")
+  File "D:\LaityTest\study_exe\ui\main_window.py", line 21, in lazy_import_page_settings
+    return SettingsPage()
+  File "D:\LaityTest\study_exe\ui\pages\page_settings.py", line 13, in __init__
+    self.init_ui()
+  File "D:\LaityTest\study_exe\ui\pages\page_settings.py", line 55, in init_ui
+    self.stacked_widget.addWidget(self.create_tools_page())     # 工具设置
+  File "D:\LaityTest\study_exe\ui\pages\page_settings.py", line 176, in create_tools_page
+    timeout_edit = QLineEdit("30")
+NameError: name 'QLineEdit' is not defined
+
+2026-02-09 16:52:46,384 | INFO | ==================================================
+2026-02-09 16:52:46,384 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 16:52:46,384 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 16:52:46,452 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 16:52:48,176 | INFO | 数据库页面已加载
+2026-02-09 16:52:54,655 | CRITICAL | 程序崩溃：
+Traceback (most recent call last):
+  File "D:\LaityTest\study_exe\ui\main_window.py", line 77, in on_tab_changed
+    self.tab_widget.insertTab(index, lazy_import_page_settings(), "设置")
+  File "D:\LaityTest\study_exe\ui\main_window.py", line 21, in lazy_import_page_settings
+    return SettingsPage()
+  File "D:\LaityTest\study_exe\ui\pages\page_settings.py", line 13, in __init__
+    self.init_ui()
+  File "D:\LaityTest\study_exe\ui\pages\page_settings.py", line 55, in init_ui
+    self.stacked_widget.addWidget(self.create_tools_page())     # 工具设置
+  File "D:\LaityTest\study_exe\ui\pages\page_settings.py", line 176, in create_tools_page
+    timeout_edit = QLineEdit("30")
+NameError: name 'QLineEdit' is not defined
+
+2026-02-09 16:58:01,175 | INFO | ==================================================
+2026-02-09 16:58:01,175 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 16:58:01,175 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 16:58:01,233 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 16:58:30,992 | INFO | 数据库页面已加载
+2026-02-09 17:03:55,090 | CRITICAL | 程序崩溃：
+Traceback (most recent call last):
+  File "D:\LaityTest\study_exe\main.py", line 25, in <module>
+    main()
+  File "D:\LaityTest\study_exe\main.py", line 22, in main
+    sys.exit(app.exec_())
+KeyboardInterrupt
+
+2026-02-09 17:07:22,830 | INFO | ==================================================
+2026-02-09 17:07:22,830 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 17:07:22,830 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 17:07:22,902 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 17:07:22,904 | CRITICAL | 程序崩溃：
+Traceback (most recent call last):
+  File "D:\LaityTest\study_exe\main.py", line 25, in <module>
+    main()
+  File "D:\LaityTest\study_exe\main.py", line 19, in main
+    main_window = MainWindow()
+  File "D:\LaityTest\study_exe\ui\main_window.py", line 36, in __init__
+    self.init_ui()
+  File "D:\LaityTest\study_exe\ui\main_window.py", line 45, in init_ui
+    self.tab_widget.addTab(self.create_placeholder("我的"), "我的")
+  File "D:\LaityTest\study_exe\ui\main_window.py", line 61, in create_placeholder
+    label.setFont(QtGui.QFont("Microsoft YaHei", 14))
+NameError: name 'QtGui' is not defined
+
+2026-02-09 17:07:33,163 | INFO | ==================================================
+2026-02-09 17:07:33,163 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 17:07:33,164 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 17:07:33,223 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 17:07:33,225 | CRITICAL | 程序崩溃：
+Traceback (most recent call last):
+  File "D:\LaityTest\study_exe\main.py", line 25, in <module>
+    main()
+  File "D:\LaityTest\study_exe\main.py", line 19, in main
+    main_window = MainWindow()
+  File "D:\LaityTest\study_exe\ui\main_window.py", line 36, in __init__
+    self.init_ui()
+  File "D:\LaityTest\study_exe\ui\main_window.py", line 45, in init_ui
+    self.tab_widget.addTab(self.create_placeholder("我的"), "我的")
+  File "D:\LaityTest\study_exe\ui\main_window.py", line 61, in create_placeholder
+    label.setFont(QtGui.QFont("Microsoft YaHei", 14))
+NameError: name 'QtGui' is not defined
+
+2026-02-09 17:09:05,328 | INFO | ==================================================
+2026-02-09 17:09:05,328 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 17:09:05,328 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 17:09:05,388 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 17:09:11,238 | INFO | 数据库页面已加载
+2026-02-09 17:09:23,155 | INFO | 加载CMD模板：ipconfig
+2026-02-09 17:09:25,374 | INFO | 执行CMD命令：ipconfig
+2026-02-09 17:09:25,603 | INFO | CMD命令执行完成
+2026-02-09 17:09:36,684 | INFO | 加载PS1模板：Get-Process
+2026-02-09 17:09:39,145 | INFO | 执行PS1命令：Get-Process
+2026-02-09 17:09:42,539 | INFO | PS1命令执行完成
+2026-02-09 17:10:10,056 | CRITICAL | 程序崩溃：
+Traceback (most recent call last):
+  File "D:\LaityTest\study_exe\ui\pages\page_db.py", line 374, in onekey_login
+    self.db_edit.setText("archives")
+AttributeError: 'DBPage' object has no attribute 'db_edit'
+
+2026-02-09 17:10:28,072 | INFO | ==================================================
+2026-02-09 17:10:28,074 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 17:10:28,074 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 17:10:28,138 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 17:10:30,093 | INFO | 数据库页面已加载
+2026-02-09 17:10:59,815 | INFO | ==================================================
+2026-02-09 17:10:59,815 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 17:10:59,815 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 17:10:59,882 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 17:11:02,212 | INFO | 数据库页面已加载
+2026-02-09 17:14:45,318 | INFO | 加载CMD模板：ping www.baidu.com
+2026-02-09 17:15:32,107 | INFO | ==================================================
+2026-02-09 17:15:32,107 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 17:15:32,107 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 17:15:32,162 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 17:15:35,095 | INFO | 数据库页面已加载
+2026-02-09 17:36:46,914 | INFO | ==================================================
+2026-02-09 17:36:46,915 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 17:36:46,915 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 17:36:46,989 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 17:37:02,645 | INFO | 数据库连接成功：localhost:3306
+2026-02-09 17:37:18,679 | INFO | 数据库连接成功：localhost:3306
+2026-02-09 17:37:38,484 | ERROR | SSH连接失败：[Errno None] Unable to connect to port 22 on 127.0.0.1 or ::1
+2026-02-09 17:37:42,732 | INFO | 加载CMD模板：ipconfig
+2026-02-09 17:37:44,679 | INFO | 执行CMD命令：ipconfig
+2026-02-09 17:37:44,789 | INFO | CMD命令执行完成
+2026-02-09 17:37:55,507 | INFO | 保存CMD脚本：C:/Users/laity.wang/cmd_script.bat
+2026-02-09 17:40:36,360 | INFO | 加载PS1模板：Get-ChildItem
+2026-02-09 18:04:17,159 | INFO | ==================================================
+2026-02-09 18:04:17,159 | INFO | 程序启动，日志系统初始化完成
+2026-02-09 18:04:17,159 | INFO | 日志文件路径：D:\LaityTest\study_exe\log\app_2026-02-09.log
+2026-02-09 18:04:17,231 | INFO | 调试模式：跳过登录，直接打开主窗口
+2026-02-09 18:05:18,952 | INFO | 加载PS1模板：Get-Service
+2026-02-09 18:05:20,822 | INFO | 执行PS1命令：Get-Service
+2026-02-09 18:05:22,375 | INFO | PS1命令执行完成
+2026-02-09 18:05:38,018 | INFO | 加载CMD模板：dir
+2026-02-09 18:05:41,006 | INFO | 加载CMD模板：ping www.baidu.com
+2026-02-09 18:05:42,559 | INFO | 执行CMD命令：ping www.baidu.com
+2026-02-09 18:05:45,693 | INFO | CMD命令执行完成
+2026-02-09 18:05:50,604 | INFO | 执行CMD命令：ping www.baidu.com
+2026-02-09 18:05:51,652 | INFO | 停止CMD命令执行
+2026-02-09 18:05:53,724 | INFO | CMD命令执行完成
+2026-02-09 18:06:05,108 | INFO | 清空SSH连接信息
+2026-02-09 18:06:17,467 | INFO | 数据库连接成功：localhost:3306

@@ -12,18 +12,18 @@ from utils.ui_util import show_info
 class MyPage(QWidget):
     def __init__(self):
         super().__init__()
-        # 先初始化空布局，延迟加载内容（彻底解决卡顿）
+        # 初始化主布局（直接加载，避免延迟导致显示异常）
         self.main_layout = QVBoxLayout(self)
         self.main_layout.setContentsMargins(0, 0, 0, 0)
-        self.main_layout.addWidget(QLabel("加载统计数据中...", alignment=Qt.AlignCenter))
-
-        # 延迟100ms加载内容，避免初始化卡顿
-        QTimer.singleShot(100, self.init_ui)
+        # 立即初始化UI（取消延迟加载，确保统计数据显示）
+        self.init_ui()
 
     def init_ui(self):
-        # 清空临时布局
+        # 清空布局（防止重复加载）
         for i in reversed(range(self.main_layout.count())):
-            self.main_layout.itemAt(i).widget().deleteLater()
+            widget = self.main_layout.itemAt(i).widget()
+            if widget:
+                widget.deleteLater()
 
         # 设置全局自适应
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -53,6 +53,9 @@ class MyPage(QWidget):
         content_layout.setContentsMargins(10, 10, 10, 10)
         content_layout.setSpacing(20)
         content_layout.setSizeConstraint(QGridLayout.SetMinAndMaxSize)
+
+        # ========== 强制刷新统计数据 ==========
+        config_manager.load_stats()
 
         # ========== 统计卡片 ==========
         # 1. 数据库统计卡片
@@ -161,7 +164,7 @@ class MyPage(QWidget):
         title_label.setObjectName("card_title")
         layout.addWidget(title_label)
 
-        # 统计项
+        # 统计项（强制刷新数值）
         for label_text, value in stats:
             row_layout = QHBoxLayout()
             row_layout.setSpacing(10)
@@ -169,6 +172,12 @@ class MyPage(QWidget):
             label = QLabel(f"{label_text}：")
             label.setObjectName("stat_label")
             row_layout.addWidget(label)
+
+            # 强制获取最新值
+            if label_text == "累计连接次数" and "数据库" in title:
+                value = config_manager.get_stat("db_connections")
+            elif label_text == "历史命令条数":
+                value = len(config_manager.get_ssh_history())
 
             value_label = QLabel(str(value))
             value_label.setObjectName("stat_value")
@@ -185,5 +194,5 @@ class MyPage(QWidget):
         config_manager.stats = config_manager.default_stats
         config_manager.save_stats()
         show_info("成功", "所有统计数据已重置！")
-        # 刷新页面
+        # 强制刷新页面
         self.init_ui()

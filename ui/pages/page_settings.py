@@ -486,19 +486,25 @@ class SettingsPage(QWidget):
 
     # ========== 核心功能修复 ==========
     def change_theme(self, text):
-        """修复主题切换（全局生效）"""
+        """修复主题切换（全局生效+回退正常）"""
         theme_map = {"浅色": "light", "深色": "dark", "跟随系统": "system"}
         theme = theme_map.get(text, "light")
         config_manager.set("theme", theme)
 
         # 实时切换全局主题
         from PyQt5.QtWidgets import QApplication
+        from PyQt5.QtGui import QPalette, QColor
         app = QApplication.instance()
+
+        # 保存原始调色板（用于回退）
+        if not hasattr(self, 'original_palette'):
+            self.original_palette = app.palette()
+
         palette = QPalette()
 
         if theme == "dark":
-            # 深色主题（修复颜色值）
-            palette.setColor(QPalette.Window, QColor(28, 28, 28))
+            # 深色主题（修复颜色值，确保所有控件生效）
+            palette.setColor(QPalette.Window, QColor(30, 30, 30))
             palette.setColor(QPalette.WindowText, QColor(240, 240, 240))
             palette.setColor(QPalette.Base, QColor(40, 40, 40))
             palette.setColor(QPalette.AlternateBase, QColor(50, 50, 50))
@@ -507,22 +513,25 @@ class SettingsPage(QWidget):
             palette.setColor(QPalette.ButtonText, QColor(240, 240, 240))
             palette.setColor(QPalette.Highlight, QColor(66, 133, 244))
             palette.setColor(QPalette.HighlightedText, QColor(255, 255, 255))
-        else:
-            # 浅色主题（修复颜色值）
-            palette.setColor(QPalette.Window, QColor(255, 255, 255))
-            palette.setColor(QPalette.WindowText, QColor(30, 30, 30))
-            palette.setColor(QPalette.Base, QColor(248, 249, 250))
-            palette.setColor(QPalette.AlternateBase, QColor(230, 230, 230))
-            palette.setColor(QPalette.Text, QColor(30, 30, 30))
-            palette.setColor(QPalette.Button, QColor(240, 240, 240))
-            palette.setColor(QPalette.ButtonText, QColor(30, 30, 30))
-            palette.setColor(QPalette.Highlight, QColor(66, 133, 244))
-            palette.setColor(QPalette.HighlightedText, QColor(255, 255, 255))
+            palette.setColor(QPalette.ToolTipBase, QColor(50, 50, 50))
+            palette.setColor(QPalette.ToolTipText, QColor(240, 240, 240))
+        elif theme == "light":
+            # 浅色主题（恢复原始调色板，解决回退失败）
+            palette = self.original_palette
+        else:  # 跟随系统
+            # 使用系统默认调色板
+            palette = QApplication.style().standardPalette()
 
+        # 全局应用调色板
         app.setPalette(palette)
-        # 刷新所有窗口
+
+        # 强制刷新所有窗口和控件
         for window in app.topLevelWidgets():
+            window.setPalette(palette)
             window.update()
+            for child in window.findChildren(QWidget):
+                child.setPalette(palette)
+                child.update()
 
     def change_font_size(self, value):
         """修复字体全局生效"""

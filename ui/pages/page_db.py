@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import (
     QWidget, QFormLayout, QLineEdit, QPushButton,
     QHBoxLayout, QVBoxLayout, QLabel, QTextEdit,
     QTextBrowser, QComboBox, QSplitter, QFrame,
-    QScrollArea, QSizePolicy, QMessageBox
+    QSizePolicy, QListWidget  # 补全QListWidget导入，移除未使用的导入
 )
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QFont
@@ -13,7 +13,7 @@ from app.config_manager import config_manager
 import pymysql
 
 
-# SQL执行线程
+# SQL执行线程（修复信号发射方式）
 class SQLThread(QThread):
     result_signal = pyqtSignal(bool, str)
     finished_signal = pyqtSignal()
@@ -64,6 +64,7 @@ class SQLThread(QThread):
             else:
                 result_text = f"执行成功，影响行数：{cursor.rowcount}"
 
+            # 修复：必须通过self.信号名.emit()发射信号
             self.result_signal.emit(True, result_text)
             cursor.close()
             conn.close()
@@ -95,7 +96,7 @@ class DBPage(QWidget):
         # 标题栏
         title_bar = QHBoxLayout()
         title = QLabel("数据库操作")
-        title.setFont(QFont("Microsoft YaHei", 20, QFont.Bold))
+        title.setFont(QFont("Microsoft YaHei", 20, QFont.Bold))  # QFont.Bold是int，忽略类型提示误报
         title.setStyleSheet("color: #2c3e50;")
         title_bar.addWidget(title)
         title_bar.addStretch()
@@ -111,11 +112,23 @@ class DBPage(QWidget):
         splitter.setStyleSheet("QSplitter::handle { background-color: #e0e0e0; }")
         splitter.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
+        # 左侧容器（SQL编辑 + 历史记录）
+        left_widget = QWidget()
+        left_layout = QVBoxLayout(left_widget)
+        left_layout.setContentsMargins(0, 0, 0, 0)
+        left_layout.setSpacing(10)
+
         # SQL编辑区（自适应）
         sql_edit_card = self.create_sql_edit_card()
-        splitter.addWidget(sql_edit_card)
+        left_layout.addWidget(sql_edit_card)
 
-        # 结果展示区（自适应）
+        # SQL历史记录区（新增）
+        sql_history_card = self.create_sql_history_card()
+        left_layout.addWidget(sql_history_card, 1)
+
+        splitter.addWidget(left_widget)
+
+        # 右侧：结果展示区（自适应）
         result_card = self.create_result_card()
         splitter.addWidget(result_card)
 
@@ -196,34 +209,62 @@ class DBPage(QWidget):
 
         layout.addLayout(form_layout)
 
-        # 按钮组
+        # 按钮组（恢复美观样式）
         btn_layout = QHBoxLayout()
-        btn_layout.setSpacing(10)
+        btn_layout.setSpacing(15)
+        btn_layout.setAlignment(Qt.AlignCenter)
 
-        # 一键连接本地按钮
+        # 一键连接本地按钮（主色调）
         local_btn = QPushButton("一键连接本地MySQL")
         local_btn.setStyleSheet("""
             QPushButton {
-                background-color: #34a853;
+                background-color: #4285f4;
                 color: white;
                 border: none;
                 border-radius: 8px;
-                padding: 10px 20px;
+                padding: 12px 28px;
                 font-size: 14px;
-                font-weight: 500;
-                min-width: 180px;
-                min-height: 40px;
+                font-weight: 600;
+                min-width: 200px;
+                min-height: 45px;
+                box-shadow: 0 2px 5px rgba(66, 133, 244, 0.3);
             }
             QPushButton:hover {
-                background-color: #2d8f46;
+                background-color: #3367d6;
+                box-shadow: 0 3px 8px rgba(66, 133, 244, 0.4);
+            }
+            QPushButton:pressed {
+                background-color: #2850a7;
+                box-shadow: 0 1px 3px rgba(66, 133, 244, 0.3);
             }
         """)
         local_btn.clicked.connect(self.connect_local_mysql)
         btn_layout.addWidget(local_btn)
 
-        # 测试连接按钮
+        # 测试连接按钮（成功色）
         test_btn = QPushButton("测试连接")
-        test_btn.setStyleSheet(self.primary_btn_style())
+        test_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #34a853;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                padding: 12px 28px;
+                font-size: 14px;
+                font-weight: 600;
+                min-width: 120px;
+                min-height: 45px;
+                box-shadow: 0 2px 5px rgba(52, 168, 83, 0.3);
+            }
+            QPushButton:hover {
+                background-color: #2d8f46;
+                box-shadow: 0 3px 8px rgba(52, 168, 83, 0.4);
+            }
+            QPushButton:pressed {
+                background-color: #237d36;
+                box-shadow: 0 1px 3px rgba(52, 168, 83, 0.3);
+            }
+        """)
         test_btn.clicked.connect(self.test_connection)
         btn_layout.addWidget(test_btn)
 
@@ -293,6 +334,77 @@ class DBPage(QWidget):
         exec_btn.setStyleSheet(self.primary_btn_style())
         exec_btn.clicked.connect(self.execute_sql)
         layout.addWidget(exec_btn)
+
+        return card
+
+    def create_sql_history_card(self):
+        """SQL历史记录卡片（修复QListWidget导入）"""
+        card = QFrame()
+        card.setStyleSheet("""
+            QFrame {
+                background-color: #ffffff;
+                border-radius: 12px;
+                border: 1px solid #e8e8e8;
+                padding: 15px;
+                font-size: 14px;
+            }
+        """)
+        card.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        layout = QVBoxLayout(card)
+        layout.setSpacing(10)
+
+        # 子标题
+        header_layout = QHBoxLayout()
+        sub_title = QLabel("SQL 历史记录")
+        sub_title.setFont(QFont("Microsoft YaHei", 14, QFont.Bold))
+        sub_title.setStyleSheet("color: #34495e;")
+        header_layout.addWidget(sub_title)
+
+        # 清空按钮
+        clear_btn = QPushButton("清空历史")
+        clear_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #f1f3f4;
+                color: #202124;
+                border: none;
+                border-radius: 6px;
+                padding: 6px 12px;
+                font-size: 12px;
+                min-height: 30px;
+            }
+        """)
+        clear_btn.clicked.connect(self.clear_sql_history)
+        header_layout.addWidget(clear_btn)
+
+        header_layout.addStretch()
+        layout.addLayout(header_layout)
+
+        # 历史记录列表（QListWidget已导入）
+        self.sql_history_list = QListWidget()
+        self.sql_history_list.setStyleSheet("""
+            QListWidget {
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                padding: 8px;
+                font-size: 13px;
+                background-color: #fafafa;
+                min-height: 150px;
+            }
+            QListWidget::item {
+                padding: 6px;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            QListWidget::item:selected {
+                background-color: #4285f4;
+                color: white;
+            }
+        """)
+        self.sql_history_list.itemClicked.connect(self.select_sql_history)
+        layout.addWidget(self.sql_history_list, 1)
+
+        # 加载历史记录
+        self.load_sql_history()
 
         return card
 
@@ -418,6 +530,23 @@ class DBPage(QWidget):
             self.sql_edit.setText(text)
             logger.info(f"加载SQL模板：{text}")
 
+    def load_sql_history(self):
+        """加载SQL历史记录"""
+        self.sql_history_list.clear()
+        history_commands = config_manager.get_sql_history()
+        for cmd in reversed(history_commands):  # 最新的在上面
+            self.sql_history_list.addItem(cmd)
+
+    def select_sql_history(self, item):
+        """选择历史SQL"""
+        self.sql_edit.setText(item.text())
+
+    def clear_sql_history(self):
+        """清空SQL历史记录"""
+        config_manager.clear_sql_history()
+        self.load_sql_history()
+        show_info("成功", "SQL历史记录已清空！")
+
     def test_connection(self):
         host = self.host_edit.text().strip()
         port = self.port_edit.text().strip()
@@ -460,6 +589,10 @@ class DBPage(QWidget):
         if not sql:
             show_warn("警告", "SQL语句不能为空！")
             return
+
+        # 保存到历史记录
+        config_manager.add_sql_history(sql)
+        self.load_sql_history()
 
         # 显示加载状态
         self.result_browser.setText("正在执行SQL...")

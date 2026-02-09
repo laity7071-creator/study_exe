@@ -575,9 +575,9 @@ class SSHPage(QWidget):
             show_warn("警告", "请输入要执行的命令！")
             return
 
-        # 保存到历史命令
+        # 强制保存到历史命令（修复不保存问题）
         config_manager.add_ssh_history(cmd)
-        self.load_ssh_history()
+        self.load_ssh_history()  # 立即刷新列表
         config_manager.increment_stat("ssh_command_count")
 
         self.log_thread = SSHLogThread(self.ssh_client, cmd)

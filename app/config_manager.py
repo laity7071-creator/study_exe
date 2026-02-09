@@ -49,6 +49,17 @@ class ConfigManager:
         self.load_config()
         self.load_stats()
         self.load_ssh_history()
+        # 默认SQL历史命令
+        self.default_sql_history = {
+            "commands": [],
+            "max_count": 50  # 最多保存50条
+        }
+
+        # 加载所有配置
+        self.load_config()
+        self.load_stats()
+        self.load_ssh_history()
+        self.load_sql_history()  # 新增
 
     # ========== 基础配置 ==========
     def load_config(self):
@@ -133,6 +144,40 @@ class ConfigManager:
     def clear_ssh_history(self):
         self.ssh_history["commands"] = []
         self.save_ssh_history()
+
+    # ========== 新增SQL历史命令 ==========
+    def load_sql_history(self):
+        try:
+            self.sql_history_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sql_history.json")
+            if os.path.exists(self.sql_history_path):
+                with open(self.sql_history_path, "r", encoding="utf-8") as f:
+                    self.sql_history = json.load(f)
+            else:
+                self.sql_history = self.default_sql_history
+                self.save_sql_history()
+        except:
+            self.sql_history = self.default_sql_history
+            self.save_sql_history()
+
+    def save_sql_history(self):
+        # 限制最大条数
+        if len(self.sql_history["commands"]) > self.sql_history["max_count"]:
+            self.sql_history["commands"] = self.sql_history["commands"][-self.sql_history["max_count"]:]
+        with open(self.sql_history_path, "w", encoding="utf-8") as f:
+            json.dump(self.sql_history, f, ensure_ascii=False, indent=4)
+
+    def add_sql_history(self, command):
+        """添加SQL历史命令"""
+        if command and command not in self.sql_history["commands"]:
+            self.sql_history["commands"].append(command)
+            self.save_sql_history()
+
+    def get_sql_history(self):
+        return self.sql_history["commands"]
+
+    def clear_sql_history(self):
+        self.sql_history["commands"] = []
+        self.save_sql_history()
 
 
 # 全局实例

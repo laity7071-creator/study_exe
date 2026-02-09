@@ -1,0 +1,10 @@
+{
+    "theme": "system",
+    "font_size": 12,
+    "brightness": 10,
+    "sql_timeout": 30,
+    "ssh_timeout": 10,
+    "log_level": "INFO",
+    "auto_start": false,
+    "remember_login": false
+}
